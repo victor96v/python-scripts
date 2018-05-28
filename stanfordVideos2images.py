@@ -13,6 +13,7 @@ def writeImagesFromVideo(video_path):
 	scene = video_path_splitted[len(video_path_splitted)-3]
 	video_num = video_path_splitted[len(video_path_splitted)-2]
 	scene_dir = video_origin+'/'+scene
+	
 
 	while True:
 
