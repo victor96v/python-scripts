@@ -21,8 +21,12 @@ def writeImagesFromVideo(video_path):
 
 		if r:
 			counter += 1
-			cv2.imwrite(scene_dir+'/'+scene+'_'+video_num+'_frame'+str(counter)+'.jpg',frame)
-			print('imagen '+scene_dir+'/'+scene+'_'+video_num+'_frame'+str(counter)+'.jpg'+' creada')
+			if(os.path.exists(scene_dir+'/'+scene+'_'+video_num+'_frame'+str(counter)+'.jpg') == False):
+				cv2.imwrite(scene_dir+'/'+scene+'_'+video_num+'_frame'+str(counter)+'.jpg',frame)
+				print('imagen '+scene_dir+'/'+scene+'_'+video_num+'_frame'+str(counter)+'.jpg'+' creada')
+			else:
+				print('imagen ',counter,'de',scene,video_num,' ya obtenida')
+				continue
 		else:
 			break
 
