@@ -1,8 +1,10 @@
 import os
 import cv2
 import glob
+import argparse
 
-video_origin = '/home/victor/datasets/stanford_campus_dataset/videos'
+from pathlib import Path
+
 
 def writeImagesFromVideo(video_path):
 
@@ -12,9 +14,10 @@ def writeImagesFromVideo(video_path):
 	video_path_splitted = video_path.split('/')
 	scene = video_path_splitted[len(video_path_splitted)-3]
 	video_num = video_path_splitted[len(video_path_splitted)-2]
-	scene_dir = video_origin+'/'+scene
+	scene_dir = str(Path.home())+'/train_frames'
+	if not os.path.exists(scene_dir):
+    	os.makedirs(scene_dir)
 	
-
 	while True:
 
 		r, frame = cap.read()
@@ -33,6 +36,12 @@ def writeImagesFromVideo(video_path):
 
 if __name__ == "__main__":
 
-	video_files  = glob.glob(video_origin + '/**/*.mov', recursive=True)
+	parser = argparse.ArgumentParser(description='Process a video.')
+    parser.add_argument('video_origin', metavar='video_path', type=str,
+                        help='set origin of videos')
+
+    args = parser.parse_args()
+
+	video_files  = glob.glob(args.video_origin + '/**/*.mov', recursive=True)
 	for video_path in video_files:
 		writeImagesFromVideo(video_path)
